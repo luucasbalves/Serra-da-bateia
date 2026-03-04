@@ -6,8 +6,6 @@
 <link rel="icon" href="https://i.imgur.com/I6k1bBL.jpeg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
-
 <style>
 
 * { box-sizing: border-box; }
@@ -92,7 +90,11 @@ nav a:hover::after {
   color: white;
 }
 
-.hero-overlay { max-width: 800px; }
+.hero-overlay { 
+  background: rgba(0,0,0,0.4);
+  padding: 30px;
+  border-radius: 8px;
+}
 
 .hero h1 {
   font-size: 42px;
@@ -175,8 +177,8 @@ img {
 }
 
 .card p {
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.7;
   color: #444;
   font-weight: 500;
 }
@@ -431,13 +433,31 @@ footer {
 </section>
 
 <section id="contato" class="section light">
-  <div class="container">
-    <h2>Fale Conosco</h2>
-    <p>Solicite orçamento, informações técnicas ou quaisquer outras dúvidas.</p>
-    <p><i class="fas fa-envelope"></i> contato@serradabateia.com.br</p>
-    <p><i class="fab fa-whatsapp"></i> (47) 3350-8217</p>
-    <p><i class="fas fa-clock"></i> Segunda a Sexta • 06:00 às 19:00 e sábados das 06:00 às 16:00</p>
-    <a href="https://wa.me/554733508217" target="_blank" class="btn">Solicitar Orçamento via WhatsApp</a>
+  <div class="container contato-container">
+    <div class="contato-info">
+      <h2>Fale Conosco</h2>
+      <p class="contato-sub">Solicite orçamento, informações técnicas ou quaisquer outras dúvidas.</p>
+
+      <div class="contato-item">
+        <i class="fas fa-envelope"></i>
+        contato@serradabateia.com.br
+      </div>
+
+      <div class="contato-item">
+        <i class="fab fa-whatsapp"></i>
+        (47) 3350-8217
+      </div>
+
+      <div class="contato-item">
+        <i class="fas fa-clock"></i>
+        Segunda a Sexta • 06:00 às 19:00
+      </div>
+
+      <a href="https://wa.me/554733508217" target="_blank" class="btn-contato">
+        Solicitar Orçamento via WhatsApp
+      </a>
+
+    </div>
   </div>
 </section>
 
