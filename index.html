@@ -6,7 +6,10 @@
 <link rel="icon" href="https://i.imgur.com/I6k1bBL.jpeg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+
 <style>
+
 * { box-sizing: border-box; }
 
 body {
@@ -16,6 +19,7 @@ body {
   color: #1A1A1A;
 }
 
+/* HEADER */
 header {
   position: fixed;
   top: 0;
@@ -45,6 +49,7 @@ header {
   letter-spacing: 1px;
 }
 
+/* NAV */
 nav a {
   margin-left: 30px;
   text-decoration: none;
@@ -53,6 +58,7 @@ nav a {
   position: relative;
   padding-bottom: 5px;
   font-size: 15px;
+  letter-spacing: 0.5px;
 }
 
 nav a::after {
@@ -66,8 +72,11 @@ nav a::after {
   transition: 0.3s;
 }
 
-nav a:hover::after { width: 100%; }
+nav a:hover::after {
+  width: 100%;
+}
 
+/* HERO */
 .hero {
   padding-top: 120px;
   min-height: 100vh;
@@ -89,6 +98,7 @@ nav a:hover::after { width: 100%; }
 .hero h1 {
   font-size: 42px;
   margin-bottom: 20px;
+  letter-spacing: 1px;
 }
 
 .btn {
@@ -105,6 +115,7 @@ nav a:hover::after { width: 100%; }
 
 .btn:hover { background: white; }
 
+/* SECTIONS */
 .section { padding: 100px 0; }
 .light { background: #DDD3CD; }
 
@@ -115,6 +126,7 @@ nav a:hover::after { width: 100%; }
   align-items: center;
 }
 
+/* IMAGENS */
 img {
   width: 100%;
   height: auto;
@@ -127,6 +139,7 @@ img {
   object-fit: cover;
 }
 
+/* CARDS */
 .cards {
   display: flex;
   gap: 30px;
@@ -146,14 +159,17 @@ img {
 .card:hover { transform: translateY(-6px); }
 
 .card img {
+  width: 100%;
   height: 220px;
   object-fit: cover;
+  border-radius: 6px;
   margin-bottom: 20px;
 }
 
 .card h3 {
   font-size: 20px;
   font-weight: 800;
+  letter-spacing: 0.8px;
   color: #5A3A2E;
   margin-bottom: 10px;
   text-transform: uppercase;
@@ -163,8 +179,10 @@ img {
   font-size: 15px;
   line-height: 1.6;
   color: #444;
+  font-weight: 500;
 }
 
+/* GRID MATERIAIS */
 .materiais-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -184,11 +202,22 @@ img {
 .material-item:hover { transform: translateY(-5px); }
 
 .material-item img {
+  width: 100%;
   height: 170px;
   object-fit: cover;
+  border-radius: 6px;
   margin-bottom: 15px;
 }
 
+.material-item h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #5A3A2E;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* MAPA */
 .map-container iframe {
   width: 100%;
   height: 400px;
@@ -196,6 +225,62 @@ img {
   border: 0;
 }
 
+/* CONTATO */
+.contato-container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.contato-info { max-width: 600px; }
+
+.contato-info h2 {
+  font-size: 32px;
+  color: #5A3A2E;
+  margin-bottom: 10px;
+}
+
+.contato-sub {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.contato-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.contato-item i {
+  color: #92614B;
+  font-size: 18px;
+}
+
+.btn-contato {
+  display: inline-block;
+  margin-top: 30px;
+  background: #5A3A2E;
+  color: white;
+  padding: 14px 35px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: 0.3s ease;
+}
+
+.btn-contato:hover {
+  background: #92614B;
+  transform: translateY(-3px);
+}
+
+/* WHATSAPP */
 .whatsapp-float {
   position: fixed;
   bottom: 25px;
@@ -209,7 +294,12 @@ img {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  z-index: 2000;
+  transition: 0.3s;
 }
+
+.whatsapp-float:hover { transform: scale(1.1); }
 
 footer {
   background: #5A3A2E;
@@ -218,141 +308,17 @@ footer {
   padding: 25px;
 }
 
+/* RESPONSIVO */
 @media (max-width: 768px) {
   .grid-2 { grid-template-columns: 1fr; }
   .cards { flex-direction: column; }
+  .materiais-grid { grid-template-columns: 1fr; }
 }
-</style>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+</style>
 </head>
 
 <body>
-
-<header id="header">
-  <div class="container nav">
-    <div class="logo">SERRA DA BATEIA</div>
-    <nav>
-      <a href="#sobre">Empresa</a>
-      <a href="#materiais">Materiais</a>
-      <a href="#estrutura">Estrutura</a>
-      <a href="#localizacao">Localização</a>
-      <a href="#contato">Contato</a>
-    </nav>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="hero-overlay">
-    <h1>BRITAGEM COM QUALIDADE E TRADIÇÃO</h1>
-    <p>Referência regional em produção e fornecimento de agregados minerais.</p>
-    <a href="#materiais" class="btn">VER MATERIAIS</a>
-  </div>
-</section>
-
-<section id="sobre" class="section light">
-  <div class="container grid-2">
-    <div>
-      <h2>Sobre a Serra da Bateia</h2>
-      <p>Empresa consolidada no setor de britagem e fornecimento de agregados, atuando com estrutura moderna, controle de qualidade e compromisso ambiental.</p>
-    </div>
-    <img src="https://i.imgur.com/pV0gQ62.jpeg" alt="Pedreira">
-  </div>
-</section>
-
-<section id="materiais" class="section">
-  <div class="container">
-    <h2>Materiais Comercializados</h2>
-    <div class="cards">
-      <div class="card">
-        <img src="https://i.imgur.com/IQ2QwiU.jpeg" alt="">
-        <h3><strong>Base</strong></h3>
-        <p>Material muito usado em pavimentações e acertos refinado em obras.</p>
-      </div>
-
-      <div class="card">
-        <img src="https://i.imgur.com/5J73wkb.jpeg" alt="">
-        <h3><strong>Britas VSI's</strong></h3>
-        <p>Acabamento arredondando para dar melhor finalização ao material bruto.</p>
-      </div>
-
-      <div class="card">
-        <img src="https://i.imgur.com/80S1SZW.jpeg" alt="">
-        <h3><strong>Rachão de Pedra</strong></h3>
-        <p>Utilizado principalmente para criar bases estruturais.</p>
-      </div>
-    </div>
-
-    <div style="text-align:center;margin-top:50px;">
-      <a href="#todos-materiais" class="btn">VER TODOS OS MATERIAIS</a>
-    </div>
-  </div>
-</section>
-
-<section id="estrutura" class="section light">
-  <div class="container grid-2">
-    <img src="https://i.imgur.com/jzPKlGD.jpeg" alt="Estrutura">
-    <div>
-      <h2>Estrutura Operacional</h2>
-      <p>Equipamentos modernos, frota própria e capacidade produtiva para atender grandes demandas com eficiência e pontualidade.</p>
-    </div>
-  </div>
-</section>
-
-<section id="todos-materiais" class="section light">
-  <div class="container">
-    <h2><strong>Todos os Materiais Disponíveis</strong></h2>
-    <div class="materiais-grid">
-
-      <div class="material-item"><img src="https://i.imgur.com/9AiE4nH.jpeg" alt=""><h3>Brita 0 HP</h3></div>
-      <div class="material-item"><img src="https://i.imgur.com/bDZ3WGu.jpeg" alt=""><h3>Brita 1 HP</h3></div>
-      <div class="material-item"><img src="https://i.imgur.com/FD5L3ry.jpeg" alt=""><h3>Brita 2 HP</h3></div>
-      <div class="material-item"><img src="https://i.imgur.com/5J73wkb.jpeg" alt=""><h3>Brita 0 VSI</h3></div>
-      <div class="material-item"><img src="https://i.imgur.com/u6BatBB.jpeg" alt=""><h3>Brita 1 VSI</h3></div>
-      <div class="material-item"><img src="https://i.imgur.com/KEPmdlO.jpeg" alt=""><h3>Pedrisco</h3></div>
-      <div class="material-item"><img src="https://i.imgur.com/JpzJhb0.jpeg" alt=""><h3>Rachão de Macadame</h3></div>
-      <div class="material-item"><img src="https://i.imgur.com/IQ2QwiU.jpeg" alt=""><h3>Base</h3></div>
-      <div class="material-item"><img src="https://i.imgur.com/hFuqkyC.jpeg" alt=""><h3>A3</h3></div>
-      <div class="material-item"><img src="https://i.imgur.com/5uVja3t.jpeg" alt=""><h3>Bica Corrida</h3></div>
-      <div class="material-item"><img src="https://i.imgur.com/KEPmdlO.jpeg" alt=""><h3>Pó com Pedrisco</h3></div>
-      <div class="material-item"><img src="https://i.imgur.com/NbhzjO6.jpeg" alt=""><h3>Areião de Morro</h3></div>
-      <div class="material-item"><img src="https://i.imgur.com/e8mycn0.jpeg" alt=""><h3>Rachinha</h3></div>
-      <div class="material-item"><img src="https://i.imgur.com/80S1SZW.jpeg" alt=""><h3>Rachão de Pedra</h3></div>
-      <div class="material-item"><img src="https://i.imgur.com/90LaKQn.jpeg" alt=""><h3>Areia Industrial</h3></div>
-      <div class="material-item"><img src="https://i.imgur.com/C4MvVIq.jpeg" alt=""><h3>Mistura para Concreto</h3></div>
-      <div class="material-item"><img src="https://i.imgur.com/I6k1bBL.jpeg" alt=""><h3>Pedra Detonada</h3></div>
-
-    </div>
-  </div>
-</section>
-
-<section id="localizacao" class="section">
-  <div class="container">
-    <h2>Localização</h2>
-    <div class="map-container">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1016.7414980003717!2d-48.89153156798002!3d-27.026959205303466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94df3797b6335b27%3A0xb33a5f99a258c75b!2sTerraplanagem%20e%20Transportes%20Augusto%20Ltda!5e1!3m2!1spt-BR!2sus!4v1772642478569!5m2!1spt-BR!2sus"></iframe>
-    </div>
-  </div>
-</section>
-
-<section id="contato" class="section light">
-  <div class="container">
-    <h2>Fale Conosco</h2>
-    <p>Solicite orçamento, informações técnicas ou quaisquer outras dúvidas.</p>
-    <p><i class="fas fa-envelope"></i> contato@serradabateia.com.br</p>
-    <p><i class="fab fa-whatsapp"></i> (47) 3350-8217</p>
-    <p><i class="fas fa-clock"></i> Segunda a Sexta • 06:00 às 19:00 e sábados das 06:00 às 16:00</p>
-    <a href="https://wa.me/554733508217" target="_blank" class="btn">Solicitar Orçamento via WhatsApp</a>
-  </div>
-</section>
-
-<footer>
-© 2026 Serra da Bateia – Todos os direitos reservados.
-</footer>
-
-<a href="https://wa.me/554733508217" class="whatsapp-float" target="_blank">
-<i class="fab fa-whatsapp"></i>
-</a>
 
 <script>
 window.addEventListener("scroll", function () {
@@ -364,6 +330,9 @@ window.addEventListener("scroll", function () {
   }
 });
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
