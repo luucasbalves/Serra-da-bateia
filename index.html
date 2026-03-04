@@ -85,7 +85,6 @@ nav a:hover::after {
     url("https://i.imgur.com/I6k1bBL.jpeg");
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,7 +115,7 @@ nav a:hover::after {
 .btn:hover { background: white; }
 
 /* SECTIONS */
-.section { padding: 100px 0; }
+.section { padding: 80px 20px; }
 .light { background: #DDD3CD; }
 
 .grid-2 {
@@ -310,8 +309,11 @@ footer {
 
 /* RESPONSIVO */
 @media (max-width: 768px) {
-  .grid-2 { grid-template-columns: 1fr; }
-  .cards { flex-direction: column; }
+  .hero h1 {font-size: 26px;}
+  .hero p {font-size: 15px;}
+  .nav {display: none; }
+  .grid-2 { gap: 30px; }
+  .cards { padding: 20px; }
   .materiais-grid { grid-template-columns: 1fr; }
 }
 
@@ -458,7 +460,5 @@ window.addEventListener("scroll", function () {
 });
 </script>
 
-</body>
-</html>
 </body>
 </html>
