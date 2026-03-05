@@ -586,22 +586,28 @@ reveal.classList.add("active");
 window.addEventListener("scroll", revealOnScroll);
 window.addEventListener("load", revealOnScroll);
   
-// Função para automatizar os links de WhatsApp nos materiais
+// Função para automatizar os links de WhatsApp com link da imagem
 const numeroWhats = "554733508217";
 
-// Seleciona todos os cards e itens de materiais
 const todosMateriais = document.querySelectorAll('.card, .material-item');
 
 todosMateriais.forEach(item => {
     const imagem = item.querySelector('img');
-    const nomeMaterial = item.querySelector('h3').innerText; // Pega o nome (ex: Brita 1)
+    const nomeMaterial = item.querySelector('h3').innerText;
+    const urlImagem = imagem.src; // Pega o link da foto (ex: i.imgur.com/...)
     
-    // Cria a mensagem personalizada
-    const mensagem = `Olá! Vi o material *${nomeMaterial}* no site e gostaria de solicitar um orçamento.`;
+    // Cria a mensagem com o nome e o link da foto para referência
+    const mensagem = `Olá! Vi o material *${nomeMaterial}* no site e gostaria de um orçamento.\n\nReferência da imagem: ${urlImagem}`;
+    
     const linkWhats = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(mensagem)}`;
 
-    // Transforma a imagem em um link clicável
     imagem.style.cursor = "pointer";
+    imagem.style.transition = "0.3s";
+    
+    // Adiciona um efeito visual de clique
+    imagem.addEventListener('mouseenter', () => imagem.style.opacity = "0.8");
+    imagem.addEventListener('mouseleave', () => imagem.style.opacity = "1");
+
     imagem.addEventListener('click', () => {
         window.open(linkWhats, '_blank');
     });
