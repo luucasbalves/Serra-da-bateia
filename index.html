@@ -96,6 +96,12 @@ nav a:hover::after {
   border-radius: 8px;
 }
 
+.hero-logo{
+width:420px;
+max-width:90%;
+margin-bottom:25px;
+}
+
  h1 {
   font-size: 42px;
   margin-bottom: 20px;
@@ -314,6 +320,17 @@ img {
 
 .whatsapp-float:hover { transform: scale(1.1); }
 
+.reveal{
+opacity:0;
+transform:translateY(70px);
+transition:opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.active{
+opacity:1;
+transform:translateY(0);
+}
+
 footer {
   background: #5A3A2E;
   color: white;
@@ -333,12 +350,18 @@ background-position:center;
 }
 
 .hero-overlay{
-margin-top:160px;
+margin-top:200px;
+padding:20px;
+}
+
+.hero-logo{
+width:300px;
+margin-bottom:20px;
 }
 
 .hero h1{
-font-size:22px;
-line-height:1.3;
+font-size:20px;
+line-height:1.4;
 }
 
 .hero p{
@@ -385,14 +408,22 @@ height:auto;
 </header>
 
 <section class="hero">
-  <div class="hero-overlay">
-    <h1>BRITAGEM COM QUALIDADE E TRADIÇÃO</h1>
-    <p>Referência regional em produção e fornecimento de agregados minerais.</p>
-    <a href="#materiais" class="btn">VER MATERIAIS</a>
-  </div>
+
+<div class="hero-overlay">
+
+<img class="hero-logo" src="https://i.imgur.com/lf2S7Fc.jpeg" alt="Serra da Bateia">
+
+<h1>BRITAGEM COM QUALIDADE E TRADIÇÃO</h1>
+
+<p>Referência regional em produção e fornecimento de agregados minerais.</p>
+
+<a href="#materiais" class="btn">VER MATERIAIS</a>
+
+</div>
+
 </section>
 
-<section id="sobre" class="section light">
+<section id="sobre" class="section light reveal">
   <div class="container grid-2">
     <div>
       <h2>Sobre a Serra da Bateia</h2>
@@ -402,7 +433,7 @@ height:auto;
   </div>
 </section>
 
-<section id="materiais" class="section">
+<section id="materiais" class="section reveal">
   <div class="container">
     <h2>Materiais Comercializados</h2>
     <div class="cards">
@@ -431,7 +462,7 @@ height:auto;
   </div>
 </section>
 
-<section id="estrutura" class="section light">
+<section id="estrutura" class="section light reveal">
   <div class="container grid-2">
     <img src="https://i.imgur.com/jzPKlGD.jpeg" alt="Estrutura">
     <div>
@@ -441,7 +472,7 @@ height:auto;
   </div>
 </section>
 
-<section id="todos-materiais" class="section light">
+<section id="todos-materiais" class="section light reveal">
   <div class="container">
     <h2><strong>Todos os Materiais Disponíveis</strong></h2>
     <div class="materiais-grid">
@@ -468,7 +499,7 @@ height:auto;
   </div>
 </section>
 
-<section id="localizacao" class="section">
+<section id="localizacao" class="section reveal">
   <div class="container">
     <h2>Localização</h2>
     <div class="map-container">
@@ -477,7 +508,7 @@ height:auto;
   </div>
 </section>
 
-<section id="contato" class="section light">
+<section id="contato" class="section light reveal">
   <div class="container contato-container">
     <div class="contato-info">
       <h2>Fale Conosco</h2>
@@ -506,7 +537,8 @@ height:auto;
   </div>
 </section>
 
-<footer>
+
+  <footer>
 © 2026 Serra da Bateia – Todos os direitos reservados.
 </footer>
 
@@ -523,6 +555,31 @@ window.addEventListener("scroll", function () {
     header.style.boxShadow = "none";
   }
 });
+</script>
+
+<script>
+
+function revealOnScroll() {
+
+const reveals = document.querySelectorAll(".reveal");
+
+reveals.forEach((reveal) => {
+
+const windowHeight = window.innerHeight;
+const elementTop = reveal.getBoundingClientRect().top;
+const elementVisible = 120;
+
+if (elementTop < windowHeight - elementVisible) {
+reveal.classList.add("active");
+}
+
+});
+
+}
+
+window.addEventListener("scroll", revealOnScroll);
+window.addEventListener("load", revealOnScroll);
+
 </script>
 
 </body>
