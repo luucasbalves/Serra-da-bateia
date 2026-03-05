@@ -9,6 +9,9 @@
 
 <style>
 
+  /* Faz com que a seção completa comece invisível */
+#todos-materiais { display: none; }
+
   html {
   scroll-behavior: smooth;
 }
@@ -461,7 +464,7 @@ height:auto;
     </div>
 
     <div style="text-align:center;margin-top:50px;">
-      <a href="#todos-materiais" class="btn">VER TODOS OS MATERIAIS</a>
+      <button id="btn-toggle" class="btn">VER TODOS OS MATERIAIS</button>
     </div>
   </div>
 </section>
@@ -611,6 +614,23 @@ todosMateriais.forEach(item => {
     imagem.addEventListener('click', () => {
         window.open(linkWhats, '_blank');
     });
+});
+
+  const btnToggle = document.getElementById('btn-toggle');
+const secaoTodos = document.getElementById('todos-materiais');
+
+btnToggle.addEventListener('click', function() {
+    // Se estiver escondido, mostra. Se estiver visível, esconde.
+    if (secaoTodos.style.display === 'none' || secaoTodos.style.display === '') {
+        secaoTodos.style.display = 'block';
+        this.textContent = 'OCULTAR MATERIAIS';
+    } else {
+        secaoTodos.style.display = 'none';
+        this.textContent = 'VER TODOS OS MATERIAIS';
+        
+        // Opcional: Volta a tela para o topo dos materiais ao fechar
+        document.getElementById('materiais').scrollIntoView({ behavior: 'smooth' });
+    }
 });
   
 </script>
