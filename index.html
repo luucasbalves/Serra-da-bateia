@@ -619,19 +619,21 @@ todosMateriais.forEach(item => {
   const btnToggle = document.getElementById('btn-toggle');
 const secaoTodos = document.getElementById('todos-materiais');
 
-btnToggle.addEventListener('click', function() {
-    // Se estiver escondido, mostra. Se estiver visível, esconde.
-    if (secaoTodos.style.display === 'none' || secaoTodos.style.display === '') {
-        secaoTodos.style.display = 'block';
+btnToggle.onclick = function() {
+    // Pegamos o estilo real que o navegador está renderizando
+    const displayAtual = window.getComputedStyle(secaoTodos).display;
+
+    if (displayAtual === 'none') {
+        secaoTodos.style.setProperty('display', 'block', 'important');
         this.textContent = 'OCULTAR MATERIAIS';
+        // Rola um pouquinho para baixo para mostrar que abriu
+        window.scrollBy({ top: 200, behavior: 'smooth' });
     } else {
         secaoTodos.style.display = 'none';
         this.textContent = 'VER TODOS OS MATERIAIS';
-        
-        // Opcional: Volta a tela para o topo dos materiais ao fechar
         document.getElementById('materiais').scrollIntoView({ behavior: 'smooth' });
     }
-});
+};
   
 </script>
   
