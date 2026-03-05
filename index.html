@@ -506,6 +506,9 @@ height:auto;
       <div class="material-item"><img src="https://i.imgur.com/I6k1bBL.jpeg" alt=""><h3>Pedra Detonada</h3></div>
 
     </div>
+    <div style="text-align:center; margin-top:40px;">
+        <button id="btn-toggle-bottom" class="btn">OCULTAR MATERIAIS</button>
+    </div>
   </div>
 </section>
 
@@ -619,24 +622,25 @@ todosMateriais.forEach(item => {
     });
 });
 
-  const btnToggle = document.getElementById('btn-toggle');
+ const btnTop = document.getElementById('btn-toggle');
+const btnBottom = document.getElementById('btn-toggle-bottom');
 const secaoTodos = document.getElementById('todos-materiais');
 
-btnToggle.onclick = function() {
-    // Pegam o estilo real que o navegador está renderizando
+function alternarSecao() {
     const displayAtual = window.getComputedStyle(secaoTodos).display;
 
     if (displayAtual === 'none') {
         secaoTodos.style.setProperty('display', 'block', 'important');
-        this.textContent = 'OCULTAR MATERIAIS';
-        // Rola um pouquinho para baixo para mostrar que abriu
+        btnTop.textContent = 'OCULTAR MATERIAIS';
+        btnBottom.textContent = 'OCULTAR MATERIAIS';
         window.scrollBy({ top: 200, behavior: 'smooth' });
     } else {
         secaoTodos.style.display = 'none';
-        this.textContent = 'VER TODOS OS MATERIAIS';
+        btnTop.textContent = 'VER TODOS OS MATERIAIS';
+        btnBottom.textContent = 'VER TODOS OS MATERIAIS';
         document.getElementById('materiais').scrollIntoView({ behavior: 'smooth' });
     }
-};
+}
   
 </script>
   
