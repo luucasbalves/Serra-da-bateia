@@ -562,85 +562,48 @@ height:auto;
 </a>
 
 <script>
-window.addEventListener("scroll", function () {
-  const header = document.getElementById("header");
-  if (window.scrollY > 50) {
-    header.style.boxShadow = "0 5px 25px rgba(0,0,0,0.3)";
-  } else {
-    header.style.boxShadow = "none";
-  }
-});
-</script>
-
-<script>
-
-function revealOnScroll() {
-
-const reveals = document.querySelectorAll(".reveal");
-
-reveals.forEach((reveal) => {
-
-const windowHeight = window.innerHeight;
-const elementTop = reveal.getBoundingClientRect().top;
-const elementVisible = 120;
-
-if (elementTop < windowHeight - elementVisible) {
-reveal.classList.add("active");
-}
-
+// 1. Efeito do Header
+window.addEventListener("scroll", () => {
+    const header = document.getElementById("header");
+    header.style.boxShadow = window.scrollY > 50 ? "0 5px 25px rgba(0,0,0,0.3)" : "none";
 });
 
-}
-
+// 2. Animação de Scroll (Reveal)
+const revealOnScroll = () => {
+    document.querySelectorAll(".reveal").forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 120) {
+            el.classList.add("active");
+        }
+    });
+};
 window.addEventListener("scroll", revealOnScroll);
 window.addEventListener("load", revealOnScroll);
-  
-// Função para automatizar os links de WhatsApp com link da imagem
-const numeroWhats = "554733508217";
 
-const todosMateriais = document.querySelectorAll('.card, .material-item');
+// 3. Lógica dos Botões (O que estava quebrado)
+const btnTop = document.getElementById('btn-toggle');
+const btnBottom = document.getElementById('btn-toggle-bottom');
+const secao = document.getElementById('todos-materiais');
 
-todosMateriais.forEach(item => {
-    const imagem = item.querySelector('img');
-    const nomeMaterial = item.querySelector('h3').innerText;
-    const urlImagem = imagem.src; // Pega o link da foto (ex: i.imgur.com/...)
-    
-    // Cria a mensagem com o nome e o link da foto para referência
-    const mensagem = `Olá! Vi o material *${nomeMaterial}* no site e gostaria de um orçamento.\n\nReferência da imagem: ${urlImagem}`;
-    
-    const linkWhats = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(mensagem)}`;
+function alternar() {
+    const estaVisivel = secao.style.display === 'block';
+    secao.style.display = estaVisivel ? 'none' : 'block';
+    btnTop.textContent = estaVisivel ? 'VER TODOS OS MATERIAIS' : 'OCULTAR MATERIAIS';
+    btnBottom.textContent = estaVisivel ? 'VER TODOS OS MATERIAIS' : 'OCULTAR MATERIAIS';
+    if (!estaVisivel) secao.scrollIntoView({ behavior: 'smooth' });
+}
 
-    imagem.style.cursor = "pointer";
-    imagem.style.transition = "0.3s";
-    
-    // Adiciona um efeito visual de clique
-    imagem.addEventListener('mouseenter', () => imagem.style.opacity = "0.8");
-    imagem.addEventListener('mouseleave', () => imagem.style.opacity = "1");
+btnTop.addEventListener('click', alternar);
+btnBottom.addEventListener('click', alternar);
 
-    imagem.addEventListener('click', () => {
-        window.open(linkWhats, '_blank');
+// 4. Lógica das imagens do WhatsApp
+document.querySelectorAll('.card, .material-item').forEach(item => {
+    const img = item.querySelector('img');
+    const nome = item.querySelector('h3').innerText;
+    img.style.cursor = "pointer";
+    img.addEventListener('click', () => {
+        window.open(`https://wa.me/554733508217?text=${encodeURIComponent('Olá! Gostaria de um orçamento do material: ' + nome)}`, '_blank');
     });
 });
-
- const btnTop = document.getElementById('btn-toggle');
-const btnBottom = document.getElementById('btn-toggle-bottom');
-const secaoTodos = document.getElementById('todos-materiais');
-
-function alternarSecao() {
-    const displayAtual = window.getComputedStyle(secaoTodos).display;
-
-    if (displayAtual === 'none') {
-        secaoTodos.style.setProperty('display', 'block', 'important');
-        btnTop.textContent = 'OCULTAR MATERIAIS';
-        btnBottom.textContent = 'OCULTAR MATERIAIS';
-        window.scrollBy({ top: 200, behavior: 'smooth' });
-    } else {
-        secaoTodos.style.display = 'none';
-        btnTop.textContent = 'VER TODOS OS MATERIAIS';
-        btnBottom.textContent = 'VER TODOS OS MATERIAIS';
-        document.getElementById('materiais').scrollIntoView({ behavior: 'smooth' });
-    }
-}
   
 </script>
   
