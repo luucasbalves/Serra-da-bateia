@@ -677,24 +677,107 @@ secao.scrollIntoView({behavior:"smooth"});
 
 }
 
+// 1. Efeito do Header
+window.addEventListener("scroll", () => {
+const header = document.getElementById("header");
+header.style.boxShadow =
+window.scrollY > 50 ? "0 5px 25px rgba(0,0,0,0.3)" : "none";
+
+const hero = document.querySelector(".hero");
+let offset = window.scrollY * 0.25;
+hero.style.backgroundPosition = `center ${offset}px`;
+});
+
+
+// 2. Reveal ao scroll
+const revealOnScroll = () => {
+document.querySelectorAll(".reveal").forEach(el => {
+if (el.getBoundingClientRect().top < window.innerHeight - 120) {
+el.classList.add("active");
+}
+});
+};
+
+window.addEventListener("scroll", revealOnScroll);
+window.addEventListener("load", revealOnScroll);
+
+
+// 3. BOTÃO VER MATERIAIS
+const btnTop = document.getElementById("btn-toggle");
+const btnBottom = document.getElementById("btn-toggle-bottom");
+const secao = document.getElementById("todos-materiais");
+
+function animarMateriais(){
+
+const itens = document.querySelectorAll(".material-item");
+
+itens.forEach((item,index)=>{
+setTimeout(()=>{
+item.classList.add("aparecer");
+}, index * 120);
+});
+
+}
+
+function alternar(){
+
+if(secao.classList.contains("ativo")){
+
+secao.classList.remove("ativo");
+
+btnTop.textContent = "VER TODOS OS MATERIAIS";
+btnBottom.textContent = "VER TODOS OS MATERIAIS";
+
+}else{
+
+secao.classList.add("ativo");
+
+btnTop.textContent = "OCULTAR MATERIAIS";
+btnBottom.textContent = "OCULTAR MATERIAIS";
+
+animarMateriais();
+
+setTimeout(()=>{
+secao.scrollIntoView({behavior:"smooth"});
+},200);
+
+}
+
+}
+
 btnTop.addEventListener('click', alternar);
 btnBottom.addEventListener('click', alternar);
 
-// 4. Lógica das imagens do WhatsApp
-document.querySelectorAll('.card, .material-item').forEach(item => {
-    const img = item.querySelector('img');
-   const titulo = item.querySelector('h3');
-if(!titulo) return;
-    const imagem = img.src;
 
-    img.addEventListener('click', () => {
-        const mensagem = `Olá! Gostaria de um orçamento do material: ${nome}\nImagem do material: ${imagem}`;
-        window.open(`https://wa.me/554733508217?text=${encodeURIComponent(mensagem)}`, '_blank');
-    });
+// 4. Clique nas imagens → WhatsApp
+document.querySelectorAll('.card, .material-item').forEach(item => {
+
+const img = item.querySelector('img');
+const titulo = item.querySelector('h3');
+
+if(!titulo) return;
+
+const nome = titulo.textContent;
+const imagem = img.src;
+
+img.addEventListener('click', () => {
+
+const mensagem =
+`Olá! Gostaria de um orçamento do material: ${nome}
+Imagem do material: ${imagem}`;
+
+window.open(
+`https://wa.me/554733508217?text=${encodeURIComponent(mensagem)}`,
+'_blank'
+);
+
 });
 
-  const materiais = [
+});
 
+
+// 5. Materiais rotativos
+const materiais = [
 {nome:"Brita 0 HP",img:"https://i.imgur.com/9AiE4nH.jpeg",desc:"Material fino para acabamento."},
 {nome:"Brita 1 HP",img:"https://i.imgur.com/bDZ3WGu.jpeg",desc:"Muito usado em concreto estrutural."},
 {nome:"Brita 2 HP",img:"https://i.imgur.com/FD5L3ry.jpeg",desc:"Ideal para drenagem e bases."},
@@ -712,7 +795,6 @@ if(!titulo) return;
 {nome:"Areia Industrial",img:"https://i.imgur.com/90LaKQn.jpeg",desc:"Produzida por britagem."},
 {nome:"Mistura para Concreto",img:"https://i.imgur.com/C4MvVIq.jpeg",desc:"Mistura pronta para concreto."},
 {nome:"Pedra Detonada",img:"https://i.imgur.com/I6k1bBL.jpeg",desc:"Material bruto da pedreira."}
-
 ];
 
 let indice = 0;
@@ -753,8 +835,7 @@ indice++;
 intervalo = setInterval(trocarMateriais,4000);
 
 
-/* pausa quando passa o mouse */
-
+// pausa ao passar mouse
 const container = document.getElementById("materiais-rotativos");
 
 if(container){
@@ -767,34 +848,6 @@ container.addEventListener("mouseleave",()=>{
 intervalo = setInterval(trocarMateriais,4000);
 });
 
-const cards3d = document.querySelectorAll(".card, .material-item");
-
-cards3d.forEach(card => {
-
-card.addEventListener("mousemove", e => {
-
-const rect = card.getBoundingClientRect();
-
-const x = e.clientX - rect.left;
-const y = e.clientY - rect.top;
-
-const centerX = rect.width / 2;
-const centerY = rect.height / 2;
-
-const rotateX = (y - centerY) / 12;
-const rotateY = (centerX - x) / 12;
-
-card.style.transform =
-`rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
-
-});
-
-card.addEventListener("mouseleave", () => {
-card.style.transform = "rotateX(0) rotateY(0) scale(1)";
-});
-
-});  
-  
 }
   
 
