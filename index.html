@@ -649,7 +649,16 @@ item.classList.add("aparecer");
 
 });
 
-}  
+}
+
+function alternar(){
+
+if(secao.classList.contains("ativo")){
+
+secao.classList.remove("ativo");
+
+btnTop.textContent = "VER TODOS OS MATERIAIS";
+btnBottom.textContent = "VER TODOS OS MATERIAIS";
 
 }else{
 
@@ -659,10 +668,6 @@ btnTop.textContent = "OCULTAR MATERIAIS";
 btnBottom.textContent = "OCULTAR MATERIAIS";
 
 animarMateriais();
-
-setTimeout(()=>{
-secao.scrollIntoView({behavior:"smooth"});
-},200);
 
 setTimeout(()=>{
 secao.scrollIntoView({behavior:"smooth"});
@@ -678,7 +683,8 @@ btnBottom.addEventListener('click', alternar);
 // 4. Lógica das imagens do WhatsApp
 document.querySelectorAll('.card, .material-item').forEach(item => {
     const img = item.querySelector('img');
-    const nome = item.querySelector('h3').textContent.trim();
+   const titulo = item.querySelector('h3');
+if(!titulo) return;
     const imagem = img.src;
 
     img.addEventListener('click', () => {
@@ -724,6 +730,7 @@ const card = img.closest(".card");
 
 const material = materiais[(indice + i - 1) % materiais.length];
 
+card.classList.remove("material-visivel");
 card.classList.add("material-animando");
 
 setTimeout(()=>{
