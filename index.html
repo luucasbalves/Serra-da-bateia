@@ -189,6 +189,20 @@ img {
   transition: 0.3s;
 }
 
+  #todos-materiais {
+    max-height: 0;
+    overflow: visible; /* Mude de hidden para visible */
+    opacity: 0;
+    transition: max-height 0.8s ease, opacity 0.6s ease;
+    display: none; /* Adicione isso para garantir que não ocupe espaço */
+}
+
+#todos-materiais.ativo {
+    max-height: none; /* Permite altura infinita */
+    opacity: 1;
+    display: block; /* Garante que apareça */
+}
+
 .card:hover{
 transform:translateY(-10px) scale(1.02);
 box-shadow:0 20px 40px rgba(0,0,0,0.15);
@@ -721,39 +735,40 @@ let indice = 0;
 let intervalo;
 
 function trocarMateriais() {
-  for (let i = 1; i <= 3; i++) {
-    const img = document.getElementById(`mat-img-${i}`);
-    const nome = document.getElementById(`mat-nome-${i}`);
-    const desc = document.getElementById(`mat-desc-${i}`);
-    const card = img.closest(".card");
-    const material = materiais[(indice + i - 1) % materiais.length];
-
-    card.style.opacity = "0";
-    card.style.transform = "translateY(10px)";
-
-    setTimeout(() => {
-      img.src = material.img;
-      nome.textContent = material.nome;
-      desc.textContent = material.desc;
-      card.style.opacity = "1";
-      card.style.transform = "translateY(0)";
-    }, 600);
-  }
-  indice++;
+    for (let i = 1; i <= 3; i++) {
+        const img = document.getElementById(`mat-img-${i}`);
+        const nome = document.getElementById(`mat-nome-${i}`);
+        const desc = document.getElementById(`mat-desc-${i}`);
+        if (!img || !nome || !desc) continue;
+        
+        const card = img.closest(".card");
+        const material = materiais[(indice + i - 1) % materiais.length];
+        
+        card.style.opacity = "0";
+        card.style.transform = "translateY(10px)";
+        
+        setTimeout(() => {
+            img.src = material.img;
+            nome.textContent = material.nome;
+            desc.textContent = material.desc;
+            card.style.opacity = "1";
+            card.style.transform = "translateY(0)";
+        }, 600);
+    }
+    indice = (indice + 1) % materiais.length;
 }
 
 function iniciarTimer() {
-  intervalo = setInterval(trocarMateriais, 6000);
+    intervalo = setInterval(trocarMateriais, 6000);
 }
 
 iniciarTimer();
 
-// 6. Pausa ao interagir
+// Pausa ao interagir
 const container = document.getElementById("materiais-rotativos");
 if (container) {
-  container.addEventListener("mouseenter", () => clearInterval(intervalo));
-  container.addEventListener("mouseleave", iniciarTimer);
-  container.addEventListener("touchstart", () => clearInterval(intervalo));
+    container.addEventListener("mouseenter", () => clearInterval(intervalo));
+    container.addEventListener("mouseleave", iniciarTimer);
 }
 </script>
 </body>
