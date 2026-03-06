@@ -598,11 +598,19 @@ const btnBottom = document.getElementById('btn-toggle-bottom');
 const secao = document.getElementById('todos-materiais');
 
 function alternar() {
-    const estaVisivel = secao.style.display === 'block';
-    secao.style.display = estaVisivel ? 'none' : 'block';
-    btnTop.textContent = estaVisivel ? 'VER TODOS OS MATERIAIS' : 'OCULTAR MATERIAIS';
-    btnBottom.textContent = estaVisivel ? 'VER TODOS OS MATERIAIS' : 'OCULTAR MATERIAIS';
-    if (!estaVisivel) secao.scrollIntoView({ behavior: 'smooth' });
+    // Verifica o estado atual de forma mais precisa
+    const estaInvisivel = secao.style.display === 'none' || secao.style.display === '';
+    
+    if (estaInvisivel) {
+        secao.style.display = 'block';
+        btnTop.textContent = 'OCULTAR MATERIAIS';
+        btnBottom.textContent = 'OCULTAR MATERIAIS';
+        secao.scrollIntoView({ behavior: 'smooth' });
+    } else {
+        secao.style.display = 'none';
+        btnTop.textContent = 'VER TODOS OS MATERIAIS';
+        btnBottom.textContent = 'VER TODOS OS MATERIAIS';
+    }
 }
 
 btnTop.addEventListener('click', alternar);
