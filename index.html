@@ -180,7 +180,10 @@ img {
   transition: 0.3s;
 }
 
-.card:hover { transform: translateY(-6px); }
+.card:hover{
+transform:translateY(-10px) scale(1.02);
+box-shadow:0 20px 40px rgba(0,0,0,0.15);
+}
 
 .card img {
   width: 100%;
@@ -188,6 +191,10 @@ img {
   object-fit: cover;
   border-radius: 6px;
   margin-bottom: 20px;
+  transition: opacity .6s ease;
+}
+  .fade-out{
+opacity:0;
 }
 
 .card h3 {
@@ -197,6 +204,7 @@ img {
   color: #5A3A2E;
   margin-bottom: 10px;
   text-transform: uppercase;
+  transition:transform .4s ease, box-shadow .4s ease;
 }
 
 .card p {
@@ -338,13 +346,13 @@ img {
 
 .reveal{
 opacity:0;
-transform:translateY(70px);
-transition:opacity 0.8s ease, transform 0.8s ease;
+transform:translateY(60px) scale(0.98);
+transition:opacity 1s ease, transform 1s ease;
 }
 
 .reveal.active{
 opacity:1;
-transform:translateY(0);
+transform:translateY(0) scale(1);
 }
 
 footer {
@@ -455,26 +463,27 @@ height:auto;
 
 <section id="materiais" class="section light reveal">
   <div class="container">
-    <h2>Materiais Comercializados</h2>
-    <div class="cards">
-      <div class="card">
-        <img src="https://i.imgur.com/IQ2QwiU.jpeg" alt="">
-        <h3><strong>Base</strong></h3>
-        <p>Material muito usado em pavimentações e acertos refinado em obras.</p>
-      </div>
+    <div class="cards" id="materiais-rotativos">
 
-      <div class="card">
-        <img src="https://i.imgur.com/5J73wkb.jpeg" alt="">
-        <h3><strong>Britas VSI's</strong></h3>
-        <p>Acabamento arredondando para dar melhor finalização ao material bruto.</p>
-      </div>
+<div class="card">
+<img id="mat-img-1" src="https://i.imgur.com/IQ2QwiU.jpeg">
+<h3 id="mat-nome-1">Base</h3>
+<p id="mat-desc-1">Material muito usado em pavimentações e acertos refinado em obras.</p>
+</div>
 
-      <div class="card">
-        <img src="https://i.imgur.com/80S1SZW.jpeg" alt="">
-        <h3><strong>Rachão de Pedra</strong></h3>
-        <p>Utilizado principalmente para criar bases estruturais.</p>
-      </div>
-    </div>
+<div class="card">
+<img id="mat-img-2" src="https://i.imgur.com/5J73wkb.jpeg">
+<h3 id="mat-nome-2">Brita VSI</h3>
+<p id="mat-desc-2">Acabamento arredondado para melhor finalização.</p>
+</div>
+
+<div class="card">
+<img id="mat-img-3" src="https://i.imgur.com/80S1SZW.jpeg">
+<h3 id="mat-nome-3">Rachão de Pedra</h3>
+<p id="mat-desc-3">Utilizado principalmente em bases estruturais.</p>
+</div>
+
+</div>
 
     <div style="text-align:center;margin-top:50px;">
       <button id="btn-toggle" class="btn">VER TODOS OS MATERIAIS</button>
@@ -566,6 +575,10 @@ height:auto;
 window.addEventListener("scroll", () => {
     const header = document.getElementById("header");
     header.style.boxShadow = window.scrollY > 50 ? "0 5px 25px rgba(0,0,0,0.3)" : "none";
+  const hero = document.querySelector(".hero");
+
+let offset = window.scrollY * 0.25;
+hero.style.backgroundPosition = `center ${offset}px`;
 });
 
 // 2. Animação de Scroll (Reveal)
@@ -598,13 +611,85 @@ btnBottom.addEventListener('click', alternar);
 // 4. Lógica das imagens do WhatsApp
 document.querySelectorAll('.card, .material-item').forEach(item => {
     const img = item.querySelector('img');
-    const nome = item.querySelector('h3').innerText;
-    img.style.cursor = "pointer";
+    const nome = item.querySelector('h3').textContent.trim();
+    const imagem = img.src;
+
     img.addEventListener('click', () => {
-        window.open(`https://wa.me/554733508217?text=${encodeURIComponent('Olá! Gostaria de um orçamento do material: ' + nome)}`, '_blank');
+        const mensagem = `Olá! Gostaria de um orçamento do material: ${nome}\nImagem do material: ${imagem}`;
+        window.open(`https://wa.me/554733508217?text=${encodeURIComponent(mensagem)}`, '_blank');
     });
 });
-  
+
+  const materiais = [
+
+{nome:"Brita 0 HP",img:"https://i.imgur.com/9AiE4nH.jpeg",desc:"Material fino para acabamento."},
+{nome:"Brita 1 HP",img:"https://i.imgur.com/bDZ3WGu.jpeg",desc:"Muito usado em concreto estrutural."},
+{nome:"Brita 2 HP",img:"https://i.imgur.com/FD5L3ry.jpeg",desc:"Ideal para drenagem e bases."},
+{nome:"Brita 0 VSI",img:"https://i.imgur.com/5J73wkb.jpeg",desc:"Brita com acabamento mais arredondado."},
+{nome:"Brita 1 VSI",img:"https://i.imgur.com/u6BatBB.jpeg",desc:"Alta qualidade para concreto."},
+{nome:"Pedrisco",img:"https://i.imgur.com/KEPmdlO.jpeg",desc:"Muito usado em concreto e acabamento."},
+{nome:"Rachão de Macadame",img:"https://i.imgur.com/JpzJhb0.jpeg",desc:"Base estrutural pesada."},
+{nome:"Base",img:"https://i.imgur.com/IQ2QwiU.jpeg",desc:"Muito usada em pavimentação."},
+{nome:"A3",img:"https://i.imgur.com/hFuqkyC.jpeg",desc:"Material usado em bases de estrada."},
+{nome:"Bica Corrida",img:"https://i.imgur.com/5uVja3t.jpeg",desc:"Material misto para bases."},
+{nome:"Pó com Pedrisco",img:"https://i.imgur.com/KEPmdlO.jpeg",desc:"Ideal para compactação."},
+{nome:"Areião de Morro",img:"https://i.imgur.com/NbhzjO6.jpeg",desc:"Areia natural grossa."},
+{nome:"Rachinha",img:"https://i.imgur.com/e8mycn0.jpeg",desc:"Pedra pequena para acabamentos."},
+{nome:"Rachão de Pedra",img:"https://i.imgur.com/80S1SZW.jpeg",desc:"Base estrutural pesada."},
+{nome:"Areia Industrial",img:"https://i.imgur.com/90LaKQn.jpeg",desc:"Produzida por britagem."},
+{nome:"Mistura para Concreto",img:"https://i.imgur.com/C4MvVIq.jpeg",desc:"Mistura pronta para concreto."},
+{nome:"Pedra Detonada",img:"https://i.imgur.com/I6k1bBL.jpeg",desc:"Material bruto da pedreira."}
+
+];
+
+let indice = 0;
+let intervalo;
+
+function trocarMateriais(){
+
+for(let i=1;i<=3;i++){
+
+const img = document.getElementById(`mat-img-${i}`);
+const nome = document.getElementById(`mat-nome-${i}`);
+const desc = document.getElementById(`mat-desc-${i}`);
+
+const material = materiais[(indice + i - 1) % materiais.length];
+
+img.classList.add("fade-out");
+
+setTimeout(()=>{
+
+img.src = material.img;
+nome.textContent = material.nome;
+desc.textContent = material.desc;
+
+img.classList.remove("fade-out");
+
+},300);
+
+}
+
+indice++;
+
+}
+
+intervalo = setInterval(trocarMateriais,4000);
+
+
+/* pausa quando passa o mouse */
+
+const container = document.getElementById("materiais-rotativos");
+
+if(container){
+
+container.addEventListener("mouseenter",()=>{
+clearInterval(intervalo);
+});
+
+container.addEventListener("mouseleave",()=>{
+intervalo = setInterval(trocarMateriais,4000);
+});
+
 </script>
   
 
