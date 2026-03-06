@@ -12,8 +12,17 @@
 <meta property="og:image" content="https://i.imgur.com/I6k1bBL.jpeg">
 <style>
 
-  /* Faz com que a seção completa comece invisível */
-#todos-materiais { display: none; }
+#todos-materiais{
+max-height:0;
+overflow:hidden;
+opacity:0;
+transition:max-height .8s ease, opacity .6s ease;
+}
+
+#todos-materiais.ativo{
+max-height:5000px;
+opacity:1;
+}
 
   html {
   scroll-behavior: smooth;
@@ -229,6 +238,13 @@ opacity:0;
   border-top: 4px solid #92614B;
   box-shadow: 0 8px 20px rgba(0,0,0,0.06);
   transition: 0.3s;
+  opacity:0;
+transform:translateY(40px);
+transition:all .6s ease;
+}
+.material-item.aparecer{
+opacity:1;
+transform:translateY(0);
 }
 
 .material-item:hover { transform: translateY(-5px); }
@@ -240,6 +256,12 @@ opacity:0;
   border-radius: 6px;
   margin-bottom: 15px;
 }
+
+.card, .material-item{
+transform-style:preserve-3d;
+transition:transform .15s ease;
+will-change:transform;
+}  
 
 .material-item h3 {
   font-size: 17px;
@@ -597,20 +619,48 @@ const btnTop = document.getElementById('btn-toggle');
 const btnBottom = document.getElementById('btn-toggle-bottom');
 const secao = document.getElementById('todos-materiais');
 
-function alternar() {
-    // Verifica o estado atual de forma mais precisa
-    const estaInvisivel = secao.style.display === 'none' || secao.style.display === '';
-    
-    if (estaInvisivel) {
-        secao.style.display = 'block';
-        btnTop.textContent = 'OCULTAR MATERIAIS';
-        btnBottom.textContent = 'OCULTAR MATERIAIS';
-        secao.scrollIntoView({ behavior: 'smooth' });
-    } else {
-        secao.style.display = 'none';
-        btnTop.textContent = 'VER TODOS OS MATERIAIS';
-        btnBottom.textContent = 'VER TODOS OS MATERIAIS';
-    }
+function alternar(){
+
+if(secao.classList.contains("ativo")){
+
+secao.classList.remove("ativo");
+
+btnTop.textContent = "VER TODOS OS MATERIAIS";
+btnBottom.textContent = "VER TODOS OS MATERIAIS";
+
+function animarMateriais(){
+
+const itens = document.querySelectorAll(".material-item");
+
+itens.forEach((item,index)=>{
+
+setTimeout(()=>{
+item.classList.add("aparecer");
+}, index * 120);
+
+});
+
+}  
+
+}else{
+
+secao.classList.add("ativo");
+
+btnTop.textContent = "OCULTAR MATERIAIS";
+btnBottom.textContent = "OCULTAR MATERIAIS";
+
+animarMateriais();
+
+setTimeout(()=>{
+secao.scrollIntoView({behavior:"smooth"});
+},200);
+
+setTimeout(()=>{
+secao.scrollIntoView({behavior:"smooth"});
+},200);
+
+}
+
 }
 
 btnTop.addEventListener('click', alternar);
@@ -698,7 +748,36 @@ container.addEventListener("mouseleave",()=>{
 intervalo = setInterval(trocarMateriais,4000);
 });
 
+const cards3d = document.querySelectorAll(".card, .material-item");
+
+cards3d.forEach(card => {
+
+card.addEventListener("mousemove", e => {
+
+const rect = card.getBoundingClientRect();
+
+const x = e.clientX - rect.left;
+const y = e.clientY - rect.top;
+
+const centerX = rect.width / 2;
+const centerY = rect.height / 2;
+
+const rotateX = (y - centerY) / 12;
+const rotateY = (centerX - x) / 12;
+
+card.style.transform =
+`rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+
+});
+
+card.addEventListener("mouseleave", () => {
+card.style.transform = "rotateX(0) rotateY(0) scale(1)";
+});
+
+});  
+  
 }
+  
 
 </script>
   
