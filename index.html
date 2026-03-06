@@ -203,17 +203,11 @@ box-shadow:0 20px 40px rgba(0,0,0,0.15);
   transition: opacity .6s ease;
 }
 
-  .material-animando{
-opacity:0;
-transform:translateY(20px) scale(0.98);
-transition:all .5s ease;
+/* Melhora a transição dos cards rotativos */
+.card {
+  transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.6s ease !important;
 }
 
-.material-visivel{
-opacity:1;
-transform:translateY(0) scale(1);
-transition:all .5s ease;
-}
 
 .card h3 {
   font-size: 20px;
@@ -722,62 +716,45 @@ const materiais = [
 {nome:"Pedra Detonada",img:"https://i.imgur.com/I6k1bBL.jpeg",desc:"Material bruto da pedreira."}
 ];
 
+// 5. Materiais rotativos - CORRIGIDO
 let indice = 0;
 let intervalo;
 
-function trocarMateriais(){
+function trocarMateriais() {
+  for (let i = 1; i <= 3; i++) {
+    const img = document.getElementById(`mat-img-${i}`);
+    const nome = document.getElementById(`mat-nome-${i}`);
+    const desc = document.getElementById(`mat-desc-${i}`);
+    const card = img.closest(".card");
+    const material = materiais[(indice + i - 1) % materiais.length];
 
-for(let i=1;i<=3;i++){
+    card.style.opacity = "0";
+    card.style.transform = "translateY(10px)";
 
-const img = document.getElementById(`mat-img-${i}`);
-const nome = document.getElementById(`mat-nome-${i}`);
-const desc = document.getElementById(`mat-desc-${i}`);
-
-const card = img.closest(".card");
-
-const material = materiais[(indice + i - 1) % materiais.length];
-
-card.classList.remove("material-visivel");
-card.classList.add("material-animando");
-
-setTimeout(()=>{
-
-img.src = material.img;
-nome.textContent = material.nome;
-desc.textContent = material.desc;
-
-card.classList.remove("material-animando");
-card.classList.add("material-visivel");
-
-},300);
-
+    setTimeout(() => {
+      img.src = material.img;
+      nome.textContent = material.nome;
+      desc.textContent = material.desc;
+      card.style.opacity = "1";
+      card.style.transform = "translateY(0)";
+    }, 600);
+  }
+  indice++;
 }
 
-indice++;
-
+function iniciarTimer() {
+  intervalo = setInterval(trocarMateriais, 6000);
 }
 
-intervalo = setInterval(trocarMateriais,4000);
+iniciarTimer();
 
-
-// pausa ao passar mouse
+// 6. Pausa ao interagir
 const container = document.getElementById("materiais-rotativos");
-
-if(container){
-
-container.addEventListener("mouseenter",()=>{
-clearInterval(intervalo);
-});
-
-container.addEventListener("mouseleave",()=>{
-intervalo = setInterval(trocarMateriais,4000);
-});
-
+if (container) {
+  container.addEventListener("mouseenter", () => clearInterval(intervalo));
+  container.addEventListener("mouseleave", iniciarTimer);
+  container.addEventListener("touchstart", () => clearInterval(intervalo));
 }
-  
-
 </script>
-  
-
 </body>
 </html>
