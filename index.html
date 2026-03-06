@@ -202,8 +202,17 @@ box-shadow:0 20px 40px rgba(0,0,0,0.15);
   margin-bottom: 20px;
   transition: opacity .6s ease;
 }
-  .fade-out{
+
+  .material-animando{
 opacity:0;
+transform:translateY(20px) scale(0.98);
+transition:all .5s ease;
+}
+
+.material-visivel{
+opacity:1;
+transform:translateY(0) scale(1);
+transition:all .5s ease;
 }
 
 .card h3 {
@@ -711,9 +720,11 @@ const img = document.getElementById(`mat-img-${i}`);
 const nome = document.getElementById(`mat-nome-${i}`);
 const desc = document.getElementById(`mat-desc-${i}`);
 
+const card = img.closest(".card");
+
 const material = materiais[(indice + i - 1) % materiais.length];
 
-img.classList.add("fade-out");
+card.classList.add("material-animando");
 
 setTimeout(()=>{
 
@@ -721,7 +732,8 @@ img.src = material.img;
 nome.textContent = material.nome;
 desc.textContent = material.desc;
 
-img.classList.remove("fade-out");
+card.classList.remove("material-animando");
+card.classList.add("material-visivel");
 
 },300);
 
