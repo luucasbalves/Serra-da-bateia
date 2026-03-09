@@ -278,6 +278,7 @@ transform:translateY(0);
 transform-style:preserve-3d;
 transition:transform .15s ease;
 will-change:transform;
+cursor:pointer;
 }  
 
 .material-item h3 {
@@ -693,7 +694,7 @@ if(!titulo) return;
 const nome = titulo.textContent;
 const imagem = img.src;
 
-img.addEventListener('click', () => {
+item.addEventListener('click', () => {
 
 const mensagem =
 `Olá! Gostaria de um orçamento do material: ${nome}
