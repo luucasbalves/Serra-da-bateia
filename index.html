@@ -191,12 +191,22 @@ line-height:1.8;
 color:#444;
 max-width:650px;
 }
+  
 .grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
   align-items: center;
 }
+  
+#estrutura .grid-2{
+direction:rtl;
+}
+
+#estrutura .grid-2 > *{
+direction:ltr;
+}
+  
 
 /* IMAGENS */
 img {
