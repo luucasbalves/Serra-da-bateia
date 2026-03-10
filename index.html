@@ -443,14 +443,17 @@ footer {
 
 .galeria-estrutura{
 width:100%;
+max-width:100%;
+overflow:hidden;
 }
 
 .img-principal{
 width:100%;
-height:380px;
+height:320px;
 object-fit:cover;
 border-radius:8px;
 margin-bottom:12px;
+object-fit:cover;
 }
 
 .miniaturas-estrutura{
@@ -458,6 +461,7 @@ display:flex;
 gap:10px;
 overflow-x:auto;
 padding-bottom:5px;
+padding-top:10px;
 }
 
 .miniaturas-estrutura img{
@@ -491,6 +495,25 @@ border-radius:10px;
 
 /* RESPONSIVO */
 @media (max-width:768px){
+
+/* AJUSTE GALERIA ESTRUTURA MOBILE */
+
+.img-principal{
+height:220px;
+}
+
+.miniaturas-estrutura img{
+width:80px;
+height:60px;
+}
+
+.miniaturas-estrutura{
+scroll-snap-type:x mandatory;
+}
+
+.miniaturas-estrutura img{
+scroll-snap-align:start;
+}  
 
 .hero{
 background:
