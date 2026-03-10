@@ -441,6 +441,7 @@ footer {
   padding: 25px;
 }
 
+/*Parte da layot da "estrutura"*/  
 .galeria-estrutura{
 width:100%;
 max-width:100%;
@@ -788,7 +789,7 @@ item.classList.add("aparecer");
 });
 
 }
-
+// 4. função de "gaveta"
 function alternar(){
 
 if(!secao) return;
@@ -821,7 +822,7 @@ if(btnTop) btnTop.addEventListener('click', alternar);
 if(btnBottom) btnBottom.addEventListener('click', alternar);
 
 
-// 4. Clique nas imagens → WhatsApp
+// 5. Clique nas imagens → WhatsApp
 document.querySelectorAll('.card, .material-item').forEach(item => {
 
 const img = item.querySelector('img');
@@ -848,7 +849,7 @@ window.open(
 });
 
 
-// 5. Materiais rotativos
+// 6. Materiais rotativos
 const materiais = [
 {nome:"Brita 0 HP",img:"https://i.imgur.com/9AiE4nH.jpeg",desc:"Material fino para acabamento."},
 {nome:"Brita 1 HP",img:"https://i.imgur.com/bDZ3WGu.jpeg",desc:"Muito usado em concreto estrutural."},
@@ -905,7 +906,7 @@ intervalo = setInterval(trocarMateriais, 6000);
 iniciarTimer();
 
 
-// ===== MENU MOBILE =====
+//7 MENU MOBILE
 
 const toggle = document.getElementById("menu-toggle");
 const menu = document.getElementById("menu");
@@ -923,7 +924,7 @@ menu.classList.remove("ativo");
 );
 
 
-// ===== ANIMAÇÃO SCROLL =====
+//8 ANIMAÇÃO SCROLL 
 
 const reveals = document.querySelectorAll(".reveal");
 
@@ -943,7 +944,7 @@ window.addEventListener("scroll", revealScroll);
 revealScroll();
 
 
-/* ===== GALERIA ESTRUTURA ===== */
+/*9 GALERIA ESTRUTURA  */
 
 function trocarImagemEstrutura(img){
 
@@ -998,7 +999,7 @@ iniciarGaleria();
 
 document.querySelector(".miniaturas-estrutura img").classList.add("active");
 
-/* ===== SWIPE NA GALERIA (MOBILE) ===== */
+/* 10 deslizar NA GALERIA (MOBILE) */
 
 let startX = 0;
 let endX = 0;
