@@ -882,11 +882,13 @@ let indice = 0;
 let intervalo;
 
 function trocarMateriais() {
+
 for (let i = 1; i <= 3; i++) {
 
 const img = document.getElementById(`mat-img-${i}`);
 const nome = document.getElementById(`mat-nome-${i}`);
 const desc = document.getElementById(`mat-desc-${i}`);
+
 if (!img || !nome || !desc) continue;
 
 const card = img.closest(".card");
@@ -896,16 +898,19 @@ card.style.opacity = "0";
 card.style.transform = "translateY(10px)";
 
 setTimeout(() => {
+
 img.src = material.img;
 nome.textContent = material.nome;
 desc.textContent = material.desc;
+
 card.style.opacity = "1";
 card.style.transform = "translateY(0)";
+
 }, 600);
+
 }
 
-indice = (indice + 1) % materiais.length;
-}
+indice = (indice + 3) % materiais.length;
 
 function iniciarTimer() {
 intervalo = setInterval(trocarMateriais, 6000);
