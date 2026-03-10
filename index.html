@@ -444,12 +444,11 @@ footer {
 .galeria-estrutura{
 width:100%;
 max-width:100%;
-overflow:hidden;
 }
 
 .img-principal{
 width:100%;
-height:320px;
+max-height:420px;
 object-fit:cover;
 border-radius:8px;
 display:block;
@@ -497,35 +496,14 @@ border-radius:10px;
 
 /* AJUSTE GALERIA ESTRUTURA MOBILE */
 
-.galeria-estrutura{
-width:100%;
-height:230px;
-position:relative;
-overflow:hidden;
-}
-
 .img-principal{
-width:100%;
-height:100%;
-object-fit:cover;
+max-height:260px;
 }
 
 .miniaturas-estrutura img{
-width:80px;
+width:75px;
 height:60px;
 }
-
-.miniaturas-estrutura img{
-flex-shrink:0;
-}  
-
-.miniaturas-estrutura{
-scroll-snap-type:x mandatory;
-}
-
-.miniaturas-estrutura img{
-scroll-snap-align:start;
-}  
 
 .hero{
 background:
