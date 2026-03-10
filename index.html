@@ -12,18 +12,6 @@
 <meta property="og:image" content="https://i.imgur.com/I6k1bBL.jpeg">
 <style>
 
-#todos-materiais{
-max-height:0;
-overflow:hidden;
-opacity:0;
-transition:max-height .8s ease, opacity .6s ease;
-}
-
-#todos-materiais.ativo{
-max-height:5000px;
-opacity:1;
-}
-
   html {
   scroll-behavior: smooth;
 }
@@ -58,7 +46,10 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
+
+  
 
 .logo {
   font-weight: 900;
@@ -66,7 +57,55 @@ header {
   color: #5A3A2E;
   letter-spacing: 1px;
 }  
-  
+/* BOTÃO HAMBURGUER */
+.menu-toggle{
+display:none;
+font-size:24px;
+color:#5A3A2E;
+cursor:pointer;
+}
+
+/* MOBILE */
+@media (max-width:768px){
+
+.logo{
+position:absolute;
+left:50%;
+transform:translateX(-50%);
+text-align:center;
+max-width:200px;
+font-size:18px;
+}
+
+.menu-toggle{
+display:block;
+}
+
+nav{
+position:fixed;
+top:80px;
+right:-100%;
+width:220px;
+height:100vh;
+background:#DDD3CD;
+display:flex;
+flex-direction:column;
+padding:30px;
+gap:20px;
+transition:0.4s;
+box-shadow:-5px 0 20px rgba(0,0,0,0.2);
+}
+
+nav a{
+margin:0;
+font-size:16px;
+}
+
+nav.ativo{
+right:0;
+}
+
+}
 /* NAV */
 nav a {
   margin-left: 30px;
@@ -189,18 +228,18 @@ img {
   transition: 0.3s;
 }
 
-  #todos-materiais {
-    max-height: 0;
-    overflow: visible; /* Mude de hidden para visible */
-    opacity: 0;
-    transition: max-height 0.8s ease, opacity 0.6s ease;
-    display: none; /* Adicione isso para garantir que não ocupe espaço */
+#todos-materiais{
+max-height:0;
+overflow:hidden;
+opacity:0;
+transition:max-height .8s ease, opacity .6s ease;
+display:none;
 }
 
-#todos-materiais.ativo {
-    max-height: none; /* Permite altura infinita */
-    opacity: 1;
-    display: block; /* Garante que apareça */
+#todos-materiais.ativo{
+max-height:5000px;
+opacity:1;
+display:block;
 }
 
 .card:hover{
@@ -454,17 +493,22 @@ height:auto;
 
 <header id="header">
   <div class="container nav">
-    <div class="logo">
-  <a href="#" style="text-decoration: none; color: inherit;">SERRA DA BATEIA</a>
-</div>
-    <nav>
-      <a href="#sobre">Empresa</a>
-      <a href="#estrutura">Estrutura</a>
-      <a href="#materiais">Materiais</a>
-      <a href="#localizacao">Localização</a>
-      <a href="#contato">Contato</a>
-    </nav>
+  <div class="logo">
+    <a href="#" style="text-decoration: none; color: inherit;">SERRA DA BATEIA</a>
   </div>
+
+  <nav id="menu">
+    <a href="#sobre">Empresa</a>
+    <a href="#estrutura">Estrutura</a>
+    <a href="#materiais">Materiais</a>
+    <a href="#localizacao">Localização</a>
+    <a href="#contato">Contato</a>
+  </nav>
+
+  <div class="menu-toggle" id="menu-toggle">
+    <i class="fas fa-bars"></i>
+  </div>
+</div>
 </header>
 
 <section class="hero">
@@ -762,7 +806,20 @@ function trocarMateriais() {
 function iniciarTimer() {
     intervalo = setInterval(trocarMateriais, 6000);
 }
+// MENU HAMBURGUER
+const menuToggle = document.getElementById("menu-toggle");
+const menu = document.getElementById("menu");
 
+menuToggle.addEventListener("click", () => {
+menu.classList.toggle("ativo");
+});
+document.querySelectorAll("#menu a").forEach(link => {
+link.addEventListener("click", () => {
+menu.classList.remove("ativo");
+});
+});
+  
+  
 iniciarTimer();
 
 // Pausa ao interagir
