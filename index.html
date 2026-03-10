@@ -441,6 +441,54 @@ footer {
   padding: 25px;
 }
 
+.galeria-estrutura{
+width:100%;
+}
+
+.img-principal{
+width:100%;
+height:380px;
+object-fit:cover;
+border-radius:8px;
+margin-bottom:12px;
+}
+
+.miniaturas-estrutura{
+display:flex;
+gap:10px;
+overflow-x:auto;
+padding-bottom:5px;
+}
+
+.miniaturas-estrutura img{
+width:90px;
+height:70px;
+object-fit:cover;
+border-radius:6px;
+cursor:pointer;
+opacity:0.7;
+transition:0.3s;
+}
+
+  .miniaturas-estrutura img.active{
+opacity:1;
+outline:3px solid #92614B;
+transform:scale(1.05);
+}  
+
+.miniaturas-estrutura img:hover{
+opacity:1;
+transform:scale(1.05);
+} 
+.miniaturas-estrutura::-webkit-scrollbar{
+height:6px;
+}
+
+.miniaturas-estrutura::-webkit-scrollbar-thumb{
+background:#92614B;
+border-radius:10px;
+}  
+
 /* RESPONSIVO */
 @media (max-width:768px){
 
@@ -531,17 +579,37 @@ height:auto;
       <h2>Sobre a Serra da Bateia</h2>
       <p>Empresa consolidada no setor de britagem e fornecimento de agregados, atuando com estrutura moderna, controle de qualidade e compromisso ambiental.</p>
     </div>
-    <img src="https://i.imgur.com/pV0gQ62.jpeg" alt="Pedreira" loading="lazy">
+
+    <img src="https://i.imgur.com/qk1Ykw6.jpeg" alt="Pedreira" loading="lazy">
+
   </div>
+
 </section>
 
-  <section id="estrutura" class="section reveal">
+ <section id="estrutura" class="section reveal">
   <div class="container grid-2">
-    <img src="https://i.imgur.com/jzPKlGD.jpeg" alt="Estrutura"  loading="lazy">
+
+    <div class="galeria-estrutura">
+
+      <img id="img-principal-estrutura"
+      src="https://i.imgur.com/jzPKlGD.jpeg"
+      class="img-principal">
+
+      <div class="miniaturas-estrutura">
+
+        <img src="https://i.imgur.com/qk1Ykw6.jpeg" onclick="trocarImagemEstrutura(this)">
+        <img src="https://i.imgur.com/pn3Sqh2.jpeg" onclick="trocarImagemEstrutura(this)">
+        <img src="https://i.imgur.com/CtFsaIL.jpeg" onclick="trocarImagemEstrutura(this)">
+        <img src="https://i.imgur.com/jzPKlGD.jpeg" onclick="trocarImagemEstrutura(this)">
+
+      </div>
+    </div>
+
     <div>
       <h2>Estrutura Operacional</h2>
       <p>Equipamentos modernos, frota própria e capacidade produtiva para atender grandes demandas com eficiência e pontualidade.</p>
     </div>
+
   </div>
 </section>
 
@@ -658,12 +726,16 @@ height:auto;
 // 1. Efeito do Header
 window.addEventListener("scroll", () => {
 const header = document.getElementById("header");
+if(header){
 header.style.boxShadow =
 window.scrollY > 50 ? "0 5px 25px rgba(0,0,0,0.3)" : "none";
+}
 
 const hero = document.querySelector(".hero");
+if(hero){
 let offset = window.scrollY * 0.25;
 hero.style.backgroundPosition = `center ${offset}px`;
+}
 });
 
 
@@ -699,19 +771,21 @@ item.classList.add("aparecer");
 
 function alternar(){
 
+if(!secao) return;
+
 if(secao.classList.contains("ativo")){
 
 secao.classList.remove("ativo");
 
-btnTop.textContent = "VER TODOS OS MATERIAIS";
-btnBottom.textContent = "VER TODOS OS MATERIAIS";
+if(btnTop) btnTop.textContent = "VER TODOS OS MATERIAIS";
+if(btnBottom) btnBottom.textContent = "VER TODOS OS MATERIAIS";
 
 }else{
 
 secao.classList.add("ativo");
 
-btnTop.textContent = "OCULTAR MATERIAIS";
-btnBottom.textContent = "OCULTAR MATERIAIS";
+if(btnTop) btnTop.textContent = "OCULTAR MATERIAIS";
+if(btnBottom) btnBottom.textContent = "OCULTAR MATERIAIS";
 
 animarMateriais();
 
@@ -723,8 +797,8 @@ secao.scrollIntoView({behavior:"smooth"});
 
 }
 
-btnTop.addEventListener('click', alternar);
-btnBottom.addEventListener('click', alternar);
+if(btnTop) btnTop.addEventListener('click', alternar);
+if(btnBottom) btnBottom.addEventListener('click', alternar);
 
 
 // 4. Clique nas imagens → WhatsApp
@@ -733,7 +807,7 @@ document.querySelectorAll('.card, .material-item').forEach(item => {
 const img = item.querySelector('img');
 const titulo = item.querySelector('h3');
 
-if(!titulo) return;
+if(!titulo || !img) return;
 
 const nome = titulo.textContent;
 const imagem = img.src;
@@ -775,58 +849,120 @@ const materiais = [
 {nome:"Pedra Detonada",img:"https://i.imgur.com/I6k1bBL.jpeg",desc:"Material bruto da pedreira."}
 ];
 
-// 5. Materiais rotativos - CORRIGIDO
 let indice = 0;
 let intervalo;
 
 function trocarMateriais() {
-    for (let i = 1; i <= 3; i++) {
-        const img = document.getElementById(`mat-img-${i}`);
-        const nome = document.getElementById(`mat-nome-${i}`);
-        const desc = document.getElementById(`mat-desc-${i}`);
-        if (!img || !nome || !desc) continue;
-        
-        const card = img.closest(".card");
-        const material = materiais[(indice + i - 1) % materiais.length];
-        
-        card.style.opacity = "0";
-        card.style.transform = "translateY(10px)";
-        
-        setTimeout(() => {
-            img.src = material.img;
-            nome.textContent = material.nome;
-            desc.textContent = material.desc;
-            card.style.opacity = "1";
-            card.style.transform = "translateY(0)";
-        }, 600);
-    }
-    indice = (indice + 1) % materiais.length;
+for (let i = 1; i <= 3; i++) {
+
+const img = document.getElementById(`mat-img-${i}`);
+const nome = document.getElementById(`mat-nome-${i}`);
+const desc = document.getElementById(`mat-desc-${i}`);
+if (!img || !nome || !desc) continue;
+
+const card = img.closest(".card");
+const material = materiais[(indice + i - 1) % materiais.length];
+
+card.style.opacity = "0";
+card.style.transform = "translateY(10px)";
+
+setTimeout(() => {
+img.src = material.img;
+nome.textContent = material.nome;
+desc.textContent = material.desc;
+card.style.opacity = "1";
+card.style.transform = "translateY(0)";
+}, 600);
+}
+
+indice = (indice + 1) % materiais.length;
 }
 
 function iniciarTimer() {
-    intervalo = setInterval(trocarMateriais, 6000);
+intervalo = setInterval(trocarMateriais, 6000);
 }
-// MENU HAMBURGUER
-const menuToggle = document.getElementById("menu-toggle");
-const menu = document.getElementById("menu");
 
-menuToggle.addEventListener("click", () => {
-menu.classList.toggle("ativo");
-});
-document.querySelectorAll("#menu a").forEach(link => {
-link.addEventListener("click", () => {
-menu.classList.remove("ativo");
-});
-});
-  
-  
 iniciarTimer();
 
-// Pausa ao interagir
-const container = document.getElementById("materiais-rotativos");
-if (container) {
-    container.addEventListener("mouseenter", () => clearInterval(intervalo));
-    container.addEventListener("mouseleave", iniciarTimer);
+
+// ===== MENU MOBILE =====
+
+const toggle = document.getElementById("menu-toggle");
+const menu = document.getElementById("menu");
+
+if(toggle){
+toggle.addEventListener("click", () => {
+menu.classList.toggle("ativo");
+});
+}
+
+document.querySelectorAll("#menu a").forEach(link =>
+link.addEventListener("click", () => {
+menu.classList.remove("ativo");
+})
+);
+
+
+// ===== ANIMAÇÃO SCROLL =====
+
+const reveals = document.querySelectorAll(".reveal");
+
+function revealScroll(){
+const windowHeight = window.innerHeight;
+
+reveals.forEach(el=>{
+const elementTop = el.getBoundingClientRect().top;
+
+if(elementTop < windowHeight - 100){
+el.classList.add("active");
+}
+});
+}
+
+window.addEventListener("scroll", revealScroll);
+revealScroll();
+
+
+// ===== GALERIA ESTRUTURA =====
+
+function trocarImagemEstrutura(img){
+
+const principal = document.getElementById("img-principal-estrutura");
+if(principal) principal.src = img.src;
+
+document.querySelectorAll(".miniaturas-estrutura img")
+.forEach(i => i.classList.remove("active"));
+
+img.classList.add("active");
+
+}
+
+const imagensEstrutura = document.querySelectorAll(".miniaturas-estrutura img");
+let indexEstrutura = 0;
+
+if(imagensEstrutura.length > 0){
+
+setInterval(()=>{
+
+indexEstrutura++;
+
+if(indexEstrutura >= imagensEstrutura.length){
+indexEstrutura = 0;
+}
+
+const imgAtual = imagensEstrutura[indexEstrutura];
+
+document.getElementById("img-principal-estrutura").src = imgAtual.src;
+
+document.querySelectorAll(".miniaturas-estrutura img")
+.forEach(i => i.classList.remove("active"));
+
+imgAtual.classList.add("active");
+
+},4000);
+
+imagensEstrutura[0].classList.add("active");
+
 }
 </script>
 </body>
